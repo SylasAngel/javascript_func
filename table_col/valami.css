@@ -2,3 +2,22 @@ table,thead,tr,th,td{
     border:1px solid black;
     border-collapse: collapse;
 }
+
+table th{
+    background-color: crimson;
+}
+
+table thead~tbody>tr{
+    background-color: aqua;
+}
+
+table tbody>tr{
+    background-color: blue;
+}
+tbody tr:nth-child(2n){
+    background-color: green;
+}
+
+tbody tr:hover{
+    background-color: chocolate;
+}

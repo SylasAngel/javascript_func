@@ -1,0 +1,21 @@
+table,tbody,thead,tr,td,th{
+    border:1px solid black;
+    border-collapse: collapse;
+}
+tr td:last-child, tr td:nth-last-child(3)
+{
+    background-color: greenyellow;
+}
+tr:not(:has(td[rowspan]))+tr:not(:has(td[rowspan])):hover td{
+    background-color: tomato;
+}
+tbody tr:has(td[rowspan]):hover td,tbody tr:not(:has(td[rowspan])):hover  td{
+    background-color: tomato;
+    color:blue;
+    font-weight: bold;
+}
+tr:has(td[rowspan]):has(+tr:hover)+tr td{
+    background-color: tomato;
+    color:blue;
+    font-weight: bold;
+}

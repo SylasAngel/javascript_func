@@ -34,38 +34,43 @@ const tr = document.createElement('tr')
 thead.appendChild(tr)
 
 const th = document.createElement('th')
-th.innertext = "Fizika területe"
 tr.appendChild(th)
+th.innerText = "Fizika területe";
 
 const th2 = document.createElement('th')
-th2.innertext ="Időszak"
 tr.appendChild(th2)
+th2.innerText = "Időszak"
 
 const th3 = document.createElement('th')
-th3.innertext ="Képviselők"
 tr.appendChild(th3)
+th3.innerText ="Képviselők"
+th3.colSpan = 2;
 
 const tbody = document.createElement('tbody')
 table.appendChild(tbody)
 
 for(const a of arr)
 {
-    const tr1 = createElement('tr')
-    tbody.appendChild(tr)
-    const td4 = createElement('td')
-    td4.innertext=a.theme
+    const tr1 = document.createElement('tr')
+    tbody.appendChild(tr1)
+    const td4 = document.createElement('td')
     tr1.appendChild(td4)
-    const td5 = createElement('td')
-    td5.innertext=a.time
+    td4.innerText = a.theme;
+    const td5 = document.createElement('td')
     tr1.appendChild(td5)
-    const td6 = createElement('td')
-    td6.innertext=a.scientist1
+    td5.innerText=a.time
+    const td6 = document.createElement('td')
     tr1.appendChild(td6)
+    td6.innerText=a.scientist1
     if(a.scientist2 != undefined)
     {
-        const td7 = createElement('td')
-        td7.innertext = a.scientist2
+        const td7 = document.createElement('td')
+        td7.innerText = a.scientist2
         tr1.appendChild(td7)
+    }
+    else
+    {
+        td6.colSpan = 2
     }
 }
 

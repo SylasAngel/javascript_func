@@ -35,13 +35,9 @@ table.appendChild(thead)
 const tr = document.createElement('tr')
 thead.appendChild(tr)
 
-const th = document.createElement('th')
-tr.appendChild(th)
-th.innerText = 'Szerző neve';
+createCellElement('th','Szerző neve',tr)
 
-const th2 = document.createElement('th')
-tr.appendChild(th2)
-th2.innerText = 'Korszak';
+createCellElement('th','korszak',tr)
 
 const th3 = document.createElement('th')
 tr.appendChild(th3)
@@ -74,4 +70,16 @@ for(const sz of arr)
         td6.colSpan = 2;
     }
 }
+/**
+ * 
+ * @param {string} cellType -td vagy th
+ * @param {string} cellContent -innertext tartalom
+ * @param {HTMLTableRowElement} cellRow -melyik sorhoz csatoljuk hozzá
+ */
+function createCellElement(cellType,cellContent,cellRow)
+{
+    const cell = document.createElement(cellType)
+    cellRow.appendChild(cell)
+    cell.innerText = cellContent
 
+}

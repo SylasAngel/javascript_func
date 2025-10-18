@@ -39,9 +39,7 @@ createCellElement('th','Szerző neve',tr)
 
 createCellElement('th','korszak',tr)
 
-const th3 = document.createElement('th')
-tr.appendChild(th3)
-th3.innerText = 'Szerelmek';
+const th3 =createCellElement('th','Szerelmek',tr)
 th3.colSpan = 2;
 
 const tbody = document.createElement('tbody')
@@ -51,20 +49,12 @@ for(const sz of arr)
 {
     const tr1 = document.createElement('tr')
     tbody.appendChild(tr1)
-    const td4 = document.createElement('td')
-    tr1.appendChild(td4)
-    td4.innerText = sz.name;
-    const td5 = document.createElement('td')
-    tr1.appendChild(td5)
-    td5.innerText = sz.time;
-    const td6 = document.createElement('td')
-    tr1.appendChild(td6)
-    td6.innerText = sz.lover1;
+    createCellElement('td',sz.name,tr1)
+    createCellElement('td',sz.time,tr1)
+    const td6 = createCellElement('td',sz.lover1,tr1)
     if(sz.lover2 != undefined)
     {
-        const td7 = document.createElement('td')
-        td7.innerText = sz.lover2
-        tr1.appendChild(td7)
+        createCellElement('td',sz.lover2,tr1)
     }
     else{
         td6.colSpan = 2;
@@ -75,11 +65,13 @@ for(const sz of arr)
  * @param {string} cellType -td vagy th
  * @param {string} cellContent -innertext tartalom
  * @param {HTMLTableRowElement} cellRow -melyik sorhoz csatoljuk hozzá
+ * @returns {HTMLTableCellElement} -létrehozott cellát returnoli
  */
 function createCellElement(cellType,cellContent,cellRow)
 {
     const cell = document.createElement(cellType)
     cellRow.appendChild(cell)
     cell.innerText = cellContent
+    return cell
 
 }

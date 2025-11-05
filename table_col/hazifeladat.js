@@ -75,3 +75,47 @@ function createCellElement(cellType,cellContent,cellRow)
     return cell
 
 }
+
+const form = document.createElement('form')
+document.body.appendChild(form)
+form.id = 'form_js'
+const h2 = document.createElement('h2')
+form.appendChild(h2)
+h2.innerText = 'Javascript form'
+
+/**
+ * 
+ * @param {string} id 
+ * @param {string} innerText 
+ */
+function createLabel(id,text)
+{
+    const label = document.createElement('label')
+    form.appendChild(label)
+    label.for = id
+    label.innerText = text
+    
+    const br = document.createElement('br')
+    form.appendChild(br)
+
+    const input = document.createElement('input')
+    form.appendChild(input)
+    input.type = 'text'
+    input.id = id
+    input.name = id
+
+    const br1 = document.createElement('br')
+    form.appendChild(br1)
+
+    const br2 = document.createElement('br')
+    form.appendChild(br2)
+
+}
+createLabel('kolto_nev','Költő neve:')
+createLabel('korszak','Korszak:')
+createLabel('szerelem1','Szerelme:')
+createLabel('szerelem2','Szerelme:')
+
+const button = document.createElement('button')
+form.appendChild(button)
+button.innerText = 'Hozzáadás'

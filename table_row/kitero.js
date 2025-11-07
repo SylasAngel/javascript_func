@@ -72,6 +72,18 @@ for(const a of arr)
     const tr1 = document.createElement('tr')
     tbody.appendChild(tr1)
     const td1 = document.createElement('td')
+    td1.addEventListener('click',function(e)
+{
+    /**
+     * @type {HTMLTableCellElement}
+     */
+    const f = e.target
+    f.classList.add('marked')
+
+})
+
+
+    
     const td2 = document.createElement('td')
     const td3 = document.createElement('td')
     tr1.appendChild(td1)

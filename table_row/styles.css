@@ -48,3 +48,8 @@ tr:has(td[rowspan]):has(+tr:hover)+tr td
     background-color:aquamarine ;
 }
 
+.marked
+{
+    color:red;
+}
+

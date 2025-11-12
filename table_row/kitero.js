@@ -66,11 +66,20 @@ th2.innerText = 'Mű'
 
 const tbody = document.createElement('tbody')
 table.appendChild(tbody)
+tbody.id = 'jstabla'
 
-for(const a of arr)
+/**
+ * 
+ * @param {{nationality:string,author1:string,creation1:string,author2?:string,creation2?:string}[]} Array
+ */
+function renderTablebody(Array)
+{
+    const tbodyfunc = document.getElementById('jstabla')
+    tbody.innerHTML = '';
+    for(const a of arr)
 {
     const tr1 = document.createElement('tr')
-    tbody.appendChild(tr1)
+    tbodyfunc.appendChild(tr1)
     const td1 = document.createElement('td')
     td1.addEventListener('click',function(e)
 {
@@ -78,6 +87,17 @@ for(const a of arr)
      * @type {HTMLTableCellElement}
      */
     const f = e.target
+    f.classList.add('marked')
+
+    const asd = f.parentElement
+    const tbody = asd.parentElement
+
+    const valtozo = tbody.querySelector('.marked')
+    if(valtozo !== null)
+    {
+        valtozo.classList.remove('marked')
+    }
+
     f.classList.add('marked')
 
 })
@@ -95,7 +115,7 @@ for(const a of arr)
     if(a.author2 != undefined)
     {
     const tr2 = document.createElement('tr')
-    tbody.appendChild(tr2)
+    tbodyfunc.appendChild(tr2)
     const td4 = document.createElement('td')
     const td5 = document.createElement('td')
     tr2.appendChild(td4)
@@ -107,6 +127,9 @@ for(const a of arr)
     }
 
 }
+}
+
+renderTablebody(arr)
 
 const form = document.getElementById('htmlform')
 form.addEventListener('submit',function(e)
@@ -246,3 +269,77 @@ createFormElement(form1,'mu2','Mű: ')
 const button = document.createElement('button')
 form1.appendChild(button)
 button.innerText = 'Hozzáadás'
+
+const jsform = document.getElementById('jsform')
+jsform.addEventListener('submit', function(e)
+{
+    e.preventDefault();
+/**
+ * @type {HTMLFormElement}
+ */
+    const f = e.target
+
+    /**
+     * @type {HTMLInputElement}
+     */
+    const Nemzetiseg = f.querySelector('#nemzetiseg')
+
+        /**
+     * @type {HTMLInputElement}
+     */
+    const Szerzo1 = f.querySelector('#szerzo1')
+
+        /**
+     * @type {HTMLInputElement}
+     */
+    const Mu1= f.querySelector('#mu1')
+
+        /**
+     * @type {HTMLInputElement}
+     */
+    const Szerzo2 = f.querySelector('#szerzo2')
+
+        /**
+     * @type {HTMLInputElement}
+     */
+    const Mu2 = f.querySelector('#mu2')
+/**
+ * @type {string}
+ */
+    const nemzetvalue = Nemzetiseg.value
+
+    /**
+ * @type {string}
+ */
+    const Szerzo1value = Szerzo1.value
+
+    /**
+ * @type {string}
+ */
+    const Mu1value = Mu1.value
+
+    /**
+ * @type {string}
+ */
+    const Szerzo2Value = Szerzo2.value
+
+    /**
+ * @type {string}
+ */
+    const mu2Value = Mu2.value
+ /**
+  * @type {{nationality:string,author1:string,creation1:string,author2?:string,creation2?:string}}
+  */
+    const objekt2 = {}
+        objekt2.nationality = nemzetvalue
+        objekt2.author1 = Szerzo1value
+        objekt2.creation1 = Mu1value
+        objekt2.author2 = Szerzo2Value
+        objekt2.creation2 = mu2Value
+
+    arr.push(objekt2)
+
+    renderTablebody(arr)
+
+})
+

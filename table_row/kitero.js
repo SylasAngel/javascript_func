@@ -134,6 +134,7 @@ jsform.addEventListener('submit', function(e)
   * @type {COunt}
   */
     const objekt2 = {}
+    if(validateFields(nemzetvalue,Szerzo1value,Mu1value,Szerzo2Value,mu2Value))
         objekt2.nationality = nemzetvalue
         objekt2.author1 = Szerzo1value
         objekt2.creation1 = Mu1value

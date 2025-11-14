@@ -93,22 +93,28 @@ function renderTablebody(Array)
  */
 function createFormElement(form,id,labelContent)
 {
+    const div = document.createElement('div')
+    form.appendChild(div)
     const label = document.createElement('label')
-    form.appendChild(label)
+    div.appendChild(label)
     label.for = id
     label.innerText = labelContent
     const br = document.createElement('br')
-    form.appendChild(br)
+    div.appendChild(br)
 
     const input = document.createElement('input')
-    form.appendChild(input)
+    div.appendChild(input)
     input.type = 'text'
     input.id = id
     input.name = id
     const br1 = document.createElement('br')
-    form.appendChild(br1)
+    div.appendChild(br1)
     const br2 = document.createElement('br')
-    form.appendChild(br2)
+    div.appendChild(br2)
+
+    const span = document.createElement('span')
+    span.classList.add('.error')
+    div.appendChild(span)
 }
 
 /**
@@ -186,4 +192,24 @@ function generateHeader(table,headerList)
     {
         createCell('th',tr,a)
     }
+}
+
+/**
+ * 
+ * @param {HTMLInputElement} inputField1 
+ * @param {HTMLInputElement} inputField2 
+ * @param {HTMLInputElement} inputField3 
+ */
+function validateFields(inputField1,inputField2,inputField3)
+{
+    let valid = true
+    if(inputField1.value == '')
+    {
+        const parentDiv = inputField1.parentElement
+        const error =parentDiv.querySelector('.error')
+        error.innerText = 'Mező kitöltése kötelező'
+        valid = false
+    }
+    return valid
+
 }

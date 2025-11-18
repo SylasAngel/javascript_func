@@ -46,32 +46,47 @@ const arr = [
     }
 ]
 
-const table = document.createElement('table')
-document.body.appendChild(table)
-const headerList = ['Nemzetiseg','Szerző','Mű']
-generateHeader(table,headerList)
-const tbody = document.createElement('tbody')
-table.appendChild(tbody)
-tbody.id = 'jstabla'
 
+/**
+ * @typedef {{id:string,label:string}} FormField
+ */
+/**
+ * @type {{headerList:string[],fields:FormField[]}}
+ */
+const objec = {
+    headerList: ['Nemzetiseg','Szerző','Mű'],
+    fields: [
+          {
+        id: 'nemzetiseg',
+        label: 'Nemzetiség:'
+    },
+        {
+        id: 'szerzo1',
+        label: 'Szerző:'
+    },
+        {
+        id: 'mu1',
+        label: 'Mű:'
+    },
+        {
+        id: 'szerzo2',
+        label: 'Másik szerző:'
+    },
+        {
+        id: 'mu2',
+        label: 'Mű:'
+    }
+    ]
+};
+generateTable(objec.headerList,'jstabla')
 renderTablebody(arr)
 
 const form = document.getElementById('htmlform')
 form.addEventListener('submit',htmlFormEventListener)
 
-const form1 = document.createElement('form')
-form1.id = 'jsform'
+const form1 = generateForm('jsform',objec.fields)
 document.body.appendChild(form1)
 
-createFormElement(form1,'nemzetiseg','Nemzetiség: ')
-createFormElement(form1,'szerzo1','Szerző: ')
-createFormElement(form1,'mu1','Mű: ')
-createFormElement(form1,'szerzo2','Szerző: ')
-createFormElement(form1,'mu2','Mű: ')
-
-const button = document.createElement('button')
-form1.appendChild(button)
-button.innerText = 'Hozzáadás'
 
 const jsform = document.getElementById('jsform')
 jsform.addEventListener('submit', function(e)
@@ -81,6 +96,11 @@ jsform.addEventListener('submit', function(e)
  * @type {HTMLFormElement}
  */
     const f = e.target
+    const errors = f.querySelectorAll('.error')
+    for(const a of errors)
+    {
+        a.innerText = '';
+    }
 
     /**
      * @type {HTMLInputElement}
@@ -106,6 +126,11 @@ jsform.addEventListener('submit', function(e)
      * @type {HTMLInputElement}
      */
     const Mu2 = f.querySelector('#mu2')
+
+    if(!validateFields(Nemzetiseg,Szerzo1,Mu1))
+    {
+        return;
+    }
 /**
  * @type {string}
  */
@@ -134,18 +159,19 @@ jsform.addEventListener('submit', function(e)
   * @type {COunt}
   */
     const objekt2 = {}
-    if(validateFields(nemzetvalue,Szerzo1value,Mu1value,Szerzo2Value,mu2Value))
         objekt2.nationality = nemzetvalue
         objekt2.author1 = Szerzo1value
         objekt2.creation1 = Mu1value
-        objekt2.author2 = Szerzo2Value
-        objekt2.creation2 = mu2Value
+        objekt2.author2 = Szerzo2Value !== '' ? Szerzo2Value : undefined;
+        objekt2.creation2 = mu2Value !== '' ? mu2Value : undefined
 
     arr.push(objekt2)
 
     renderTablebody(arr)
 
 })
+
+
 
 
 

@@ -13,6 +13,12 @@ function htmlFormEventListener(e)
      * @type {HTMLFormElement}
      */
     const f = e.target
+    const errors = f.querySelectorAll('.error')
+    for(const a of errors)
+    {
+        a.innerText = '';
+    }
+
     /**
      * @type {HTMLInputElement}
      */
@@ -37,6 +43,11 @@ function htmlFormEventListener(e)
     /**
      * @type {string}
      */
+
+    if(!validateFields(Nemzetiseg,Szerzo1,mu1))
+    {
+        return;
+    }
     const nemzetvalue = Nemzetiseg.value
         /**
      * @type {string}
@@ -61,8 +72,8 @@ function htmlFormEventListener(e)
     objekt1.nationality = nemzetvalue
     objekt1.author1 = Szerzo1Value
     objekt1.creation1 = mu1Value
-    objekt1.author2 = Szerzo2Value
-    objekt1.creation2 = mu2Value
+    objekt1.author2 = Szerzo2Value !== '' ? Szerzo2 : undefined;
+    objekt1.creation2 = mu2Value !== '' ? mu2Value : undefined
 
     const tbod = document.getElementById('azon')
 
@@ -77,7 +88,7 @@ function htmlFormEventListener(e)
 function renderTablebody(Array)
 {
     const tbodyfunc = document.getElementById('jstabla')
-    tbody.innerHTML = '';
+    tbodyfunc.innerHTML = '';
     for(const a of Array)
 {
    renderTableRow(tbodyfunc,a)
@@ -113,7 +124,7 @@ function createFormElement(form,id,labelContent)
     div.appendChild(br2)
 
     const span = document.createElement('span')
-    span.classList.add('.error')
+    span.classList.add('error')
     div.appendChild(span)
 }
 
@@ -203,13 +214,85 @@ function generateHeader(table,headerList)
 function validateFields(inputField1,inputField2,inputField3)
 {
     let valid = true
-    if(inputField1.value == '')
+
+    if(!validateField(inputField1,'A mező kitöltése kötelező'))
     {
-        const parentDiv = inputField1.parentElement
-        const error =parentDiv.querySelector('.error')
-        error.innerText = 'Mező kitöltése kötelező'
+        valid = false
+    }
+
+    if(!validateField(inputField2,'A mező kitöltése kötelező'))
+    {
+        valid = false
+    }
+
+    if(!validateField(inputField3,'A mező kitöltése kötelező'))
+    {
         valid = false
     }
     return valid
+}
+
+/**
+ * 
+ * @param {string} formId 
+ * @param {Array} formList 
+ * @returns {HTMLFormElement}
+ */
+function generateForm(formId,formList)
+{
+    const form = document.createElement('form')
+    form.id = formId
+
+    for(const f of formList)
+    {
+        createFormElement(form,f.id,f.label)
+    }
+
+    const button = document.createElement('button')
+    button.innerText = 'Hozzáadás'
+    form.appendChild(button)
+
+    return form
+
 
 }
+
+/**
+ * 
+ * @param {string[]} headerList 
+ * @param {string} tbodyId 
+ */
+function generateTable(headerList, tbodyId)
+{
+    const table = document.createElement('table')
+    document.body.appendChild(table)
+
+    generateHeader(table, headerList)
+
+    const tbody = document.createElement('tbody')
+    tbody.id = tbodyId
+    table.appendChild(tbody)
+
+}
+
+/**
+ * 
+ * @param {HTMLInputElement} inputField 
+ * @param {*} message 
+ */
+function validateField(inputField, innerText)
+{
+    let valid = true;
+
+    if(inputField.value == '')
+    {
+        const parentDiv = inputField.parentElement;
+        const error = parentDiv.querySelector('.error')
+        error.innerText = innerText
+        valid = false
+    }
+
+    return valid;
+
+}
+
